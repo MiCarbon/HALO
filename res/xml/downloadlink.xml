@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/download_links">
+
+        <Preference
+            android:key="paranoid"
+            android:title="@string/paranoid_android"
+            android:icon="@drawable/paranoid_android" />
+
+        <Preference
+            android:key="carbon"
+            android:title="@string/carbon_rom"
+            android:icon="@drawable/carbon" />
+
+        <Preference
+            android:key="rootbox"
+            android:title="@string/root_box"
+            android:icon="@drawable/root_box" />
+
+        <Preference
+            android:key="uxylon"
+            android:title="@string/uxylon"
+            android:icon="@drawable/uxylon" />
+
+        <Preference
+            android:key="sabermod"
+            android:title="@string/saber_mod"
+            android:icon="@drawable/saber_mod" />
+
+        <Preference
+            android:key="pacman"
+            android:title="@string/pac_man"
+            android:icon="@drawable/pac_man" />
+        
+    </PreferenceCategory>
+    
+</PreferenceScreen>

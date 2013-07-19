@@ -26,6 +26,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import java.io.File;
@@ -41,7 +42,10 @@ public class MainActivity extends PreferenceActivity implements DialogView.Dialo
     
     private static final int MENU_ADD = 0;
     private static final int MENU_ACTION = 1;
+
+    public static final String PREFS_NAME = "YouDisgustMe";
     
+    private CheckBox dontShowAgain;
     private NotificationManager mNotificationManager;
     private Context mContext;
     private boolean mShowing;
@@ -96,6 +100,7 @@ public class MainActivity extends PreferenceActivity implements DialogView.Dialo
         setPreferenceScreen(getPreferenceManager().createPreferenceScreen(this));
         mRoot = getPreferenceScreen();
         loadPreferenceItems();
+        helperDialogs();
     }
     
     @Override
@@ -321,6 +326,80 @@ public class MainActivity extends PreferenceActivity implements DialogView.Dialo
                 pref.setSummary(key);
             }
             mRoot.addPreference(pref);
+        }
+    }
+
+    public void helperDialogs(){
+    	// On first run: Show a Dialog to explain the user the utility of Halo))).
+        // We will store the firstrun as a SharedPreference.
+
+        boolean firstrun = getSharedPreferences("PREFERENCE",
+                    MODE_PRIVATE).getBoolean("firstrun", true);
+
+        if (firstrun) {
+            // Create HelperActivity as a dialog
+            Intent intent = new Intent(this, HelperActivity.class);
+            this.startActivity(intent);
+
+            // Save a shared Preference explaining to the app that it has been run previously
+            getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .edit()
+                .putBoolean("firstrun", false)
+                .commit();        	
+        } else {
+            //Try to check if this rom is supported
+            String hasCr = Utils.getProp("ro.carbon");
+            String hasPa = Utils.getProp("ro.pa");
+            String hasSm = Utils.getProp("ro.sm");
+            String hasRb = Utils.getProp("ro.rootbox");
+            String hasPac = Utils.getProp("ro.pac");
+            String hasXy = Utils.getProp("ro.ukg");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+            View eulaLayout = inflater.inflate(R.layout.alert_dialog, null);
+            dontShowAgain = (CheckBox) eulaLayout.findViewById(R.id.skip);
+            
+
+            builder.setMessage(R.string.nots_content)
+                 .setView(eulaLayout)
+                 .setTitle(R.string.nots_title)
+                 .setPositiveButton(R.string.nots_download,
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                           String checkBoxResult = "NOT checked";
+                           if (dontShowAgain.isChecked())
+                                checkBoxResult = "checked";
+                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("skipMessage", checkBoxResult);
+                            // Commit the edits!
+                            editor.commit();
+                            Intent intent = new Intent(MainActivity.this,
+                                    DownloadLinkActivity.class);
+                            MainActivity.this.startActivity(intent);
+                        }
+                    })   
+                    .setNegativeButton(R.string.nots_ok,
+                       new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int id) {
+                               String checkBoxResult = "NOT checked";
+                               if (dontShowAgain.isChecked())
+                                   checkBoxResult = "checked";
+                               SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                               SharedPreferences.Editor editor = settings.edit();
+                               editor.putString("skipMessage", checkBoxResult);
+                               // Commit the edits!
+                               editor.commit();
+                               dialog.dismiss();
+                           }
+                    });
+
+        AlertDialog nots_dialog = builder.create();
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        String skipMessage = settings.getString("skipMessage", "NOT checked");
+        if (!skipMessage.equals("checked")) {
+            nots_dialog.show();
         }
     }
 }
