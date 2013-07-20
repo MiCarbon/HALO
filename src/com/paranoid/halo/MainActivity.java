@@ -42,6 +42,7 @@ public class MainActivity extends PreferenceActivity implements DialogView.Dialo
     
     private static final int MENU_ADD = 0;
     private static final int MENU_ACTION = 1;
+    private static final int MENU_HELP = 2;
 
     public static final String PREFS_NAME = "YouDisgustMe";
     
@@ -122,6 +123,8 @@ public class MainActivity extends PreferenceActivity implements DialogView.Dialo
         menu.add(Menu.NONE, MENU_ACTION, 0, R.string.start)
             .setIcon(R.drawable.ic_start)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+        menu.add(Menu.NONE, MENU_HELP, 0, R.string.help_dialog)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return true;
     }
 
@@ -151,6 +154,10 @@ public class MainActivity extends PreferenceActivity implements DialogView.Dialo
                 }
                 Utils.saveStatus(mShowing, mContext);
                 invalidateOptionsMenu();
+                break;
+            case MENU_HELP:
+                Intent intentH = new Intent(this, HelperActivity.class);
+                this.startActivity(intentH);
                 break;
         }
         return super.onOptionsItemSelected(item);
