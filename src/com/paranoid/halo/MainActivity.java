@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Shader;
@@ -24,8 +25,10 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
@@ -336,32 +339,20 @@ public class MainActivity extends PreferenceActivity implements DialogView.Dialo
         }
     }
 
-    public void helperDialogs(){
-    	// On first run: Show a Dialog to explain the user the utility of Halo))).
-        // We will store the firstrun as a SharedPreference.
-
+    public void helperDialogs() {
         boolean firstrun = getSharedPreferences("PREFERENCE",
                     MODE_PRIVATE).getBoolean("firstrun", true);
 
         if (firstrun) {
-            // Create HelperActivity as a dialog
+            // First setup, shows helper.
             Intent intent = new Intent(this, HelperActivity.class);
             this.startActivity(intent);
 
-            // Save a shared Preference explaining to the app that it has been run previously
             getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                 .edit()
                 .putBoolean("firstrun", false)
                 .commit();        	
         } else {
-            //Try to check if this rom is supported
-            String hasCr = Utils.getProp("ro.carbon");
-            String hasPa = Utils.getProp("ro.pa");
-            String hasSm = Utils.getProp("ro.sm");
-            String hasRb = Utils.getProp("ro.rootbox");
-            String hasPac = Utils.getProp("ro.pac");
-            String hasXy = Utils.getProp("ro.ukg");
-
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
             View eulaLayout = inflater.inflate(R.layout.alert_dialog, null);
@@ -402,11 +393,12 @@ public class MainActivity extends PreferenceActivity implements DialogView.Dialo
                            }
                     });
 
-        AlertDialog nots_dialog = builder.create();
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String skipMessage = settings.getString("skipMessage", "NOT checked");
-        if (!skipMessage.equals("checked")) {
-            nots_dialog.show();
+            AlertDialog nots_dialog = builder.create();
+            SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+            String skipMessage = settings.getString("skipMessage", "NOT checked");
+            if (!skipMessage.equals("checked")) {
+                nots_dialog.show();
+            }
         }
     }
 }
