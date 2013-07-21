@@ -36,7 +36,7 @@ public class DownloadLinkActivity extends PreferenceActivity {
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference == Paranoid) {
-            launchUrl("http://goo.im/devs/paranoidandroid/roms");
+            launchUrl("http://download.paranoidandroid.co/roms/");
         } else if (preference == Carbon) {
             launchUrl("http://goo.im/devs/carbon");
         } else if (preference == RootBox) {
