@@ -33,6 +33,11 @@
     <string name="nots_download">Install</string>
     <string name="roger_that">Don\'t show this again</string>
 
+    <string name="description_1">Helper 1</string>
+    <string name="description_2">Helper 2</string>
+    <string name="description_3">Helper 3</string>
+    <string name="preferenceicon_imageview">preferenceiconImageView</string>
+
     <string name="download_links">Supported Roms</string>
     <string name="paranoid_android">Paranoid Android</string>
     <string name="carbon_rom">Carbon ROM</string>
