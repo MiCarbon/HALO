@@ -16,16 +16,16 @@
     <string name="stop_to_remove">Please stop the service before removing any application from the list</string>
 
     <string name="help_dialog">Help</string>
-    <string name="helper_static_2">"Using HALO)))"</string>
-    <string name="helper_static_3">"Understanding HALO))) is very simple. Just tap on the Pin button on the action bar."</string>
-    <string name="helper_static_4a">"Next, Click the desired application you'd like to pin on Halo from the list."</string>
-    <string name="helper_static_4b">"Or, click the desired activity."</string>
-    <string name="helper_static_5">"Finally, click on the Start button and you’re done. If you want to disable the custom activities on HALO))), click on the pause button."</string>
+    <string name="helper_static_2">Using HALO)))</string>
+    <string name="helper_static_3">Understanding HALO))) is very simple. Just tap on the Pin button on the action bar.</string>
+    <string name="helper_static_4a">Next, Click the desired application you\'d like to pin on Halo from the list.</string>
+    <string name="helper_static_4b">Or, click the desired activity.</string>
+    <string name="helper_static_5">Finally, click on the Start button and you’re done. If you want to disable the custom activities on HALO))), click on the \'Stop\' button.</string>
 	
     <string name="nots_title">Is this ROM supported with HALO?</string>
-    <string name="nots_content">"Halo))) is specially designed to work on couple of ROMs. You might not be able to experience the full potential and features of Halo."</string>
-    <string name="nots_ok">"OK"</string>
-    <string name="nots_download">Install</string>
+    <string name="nots_content">"Halo))) is designed to work on couple of ROMs. You might not be able to experience the full potential and features of Halo."</string>
+    <string name="nots_ok">Roger that</string>
+    <string name="nots_download">Install now</string>
     <string name="roger_that">Don\'t show this again</string>
 
     <string name="download_links">Supported Roms</string>
